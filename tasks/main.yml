@@ -29,3 +29,13 @@
     mode: a+x
   tags: template
   when: hostvars['localhost']['reboot_required']
+
+# Add SSH pub keys to ESXi
+- name: Add SSH public keys to host
+  ansible.builtin.lineinfile:
+    path: "/etc/ssh/keys-root/authorized_keys"
+    line: "{{ item }}"
+    create: true
+    mode: '0600'
+  no_log: true
+  with_items: "{{ vault_pubkeys }}"

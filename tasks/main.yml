@@ -1,0 +1,31 @@
+---
+# tasks file for ansible-role-vmware-customize-esxi
+- name: Wait for kickstart.py script to start
+  ansible.builtin.wait_for:
+    path: /var/log/nebulon.log
+  tags: wait_for
+  when: hostvars['localhost']['reboot_required']
+
+- name: Check for sucessful completion of kickstart.py script
+  ansible.builtin.wait_for:
+    path: /var/log/nebulon.log
+    search_regex: Clock
+  register: script_status
+  failed_when: false
+  tags: wait_for
+  when: hostvars['localhost']['reboot_required']
+
+- name: Replace the local.sh file
+  ansible.builtin.template:
+    src: local.j2
+    dest: /etc/rc.local.d/local.sh
+    mode: '0755'
+  tags: template
+  when: hostvars['localhost']['reboot_required']
+
+- name: Mark local.sh script as executable
+  ansible.builtin.file:
+    dest: /etc/rc.local.d/local.sh
+    mode: a+x
+  tags: template
+  when: hostvars['localhost']['reboot_required']

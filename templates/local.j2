@@ -1,0 +1,9 @@
+#!/bin/sh ++group=host/vim/vmvisor/boot
+
+# Enable SSH
+vim-cmd hostsvc/enable_ssh
+
+# Start SSH
+vim-cmd hostsvc/start_ssh
+
+exit 0

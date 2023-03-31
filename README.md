@@ -31,7 +31,7 @@ Example Playbook
 
       vars_files:
         # Ansible vault with all required passwords
-        - "/home/apatt/github/demopod-ansible/credentials.yml"
+        - "../../credentials.yml"
 
       vars:
         ansible_python_interpreter: /bin/python

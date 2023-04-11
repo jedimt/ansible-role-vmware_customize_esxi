@@ -39,7 +39,7 @@ Example Playbook
         ansible_password: "{{ vault_esxi_password }}"
 
       roles:
-        - ansible-role-vmware-customize-esxi
+        - jedimt.vmware_customize_esxi
 
 
 License
